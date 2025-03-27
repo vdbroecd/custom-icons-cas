@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Icon Library</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
+        .grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .icon { width: 100px; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .icon:hover { background: #f5f5f5; }
+        .icon img { width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <h1>Custom icons CAS genesisWorld</h1>
+    <input type="text" id="search" class="search" placeholder="Zoek een icoon..." onkeyup="filterIcons()">
+    <div class="grid" id="iconGrid"></div>
+
+    <script>
+        async function loadIcons() {
+            const response = await fetch('icons/');
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            
+            let icons = [];
+            doc.querySelectorAll('a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href.endsWith('.svg')) {
+                    icons.push(href);
+                }
+            });
+
+            const grid = document.getElementById("iconGrid");
+            grid.innerHTML = "";
+            icons.forEach(icon => {
+                let div = document.createElement("div");
+                div.classList.add("icon");
+                div.innerHTML = `<a href="icons/${icon}" download>
+                    <img src="icons/${icon}" alt="${icon}">
+                </a>`;
+                grid.appendChild(div);
+            });
+        }
+
+        function filterIcons() {
+            let search = document.getElementById("search").value.toLowerCase();
+            document.querySelectorAll('.icon').forEach(div => {
+                let iconName = div.querySelector("img").alt.toLowerCase();
+                div.style.display = iconName.includes(search) ? "block" : "none";
+            });
+        }
+
+        loadIcons();
+    </script>
+</body>
+</html>
