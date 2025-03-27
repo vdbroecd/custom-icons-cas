@@ -1,55 +1,50 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SVG Icon Library</title>
+    <title>Icon Library</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        .search { margin-bottom: 20px; padding: 10px; width: 300px; font-size: 16px; }
-        .grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .icon { width: 100px; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; transition: 0.3s; }
-        .icon:hover { background: #f5f5f5; }
-        .icon img { width: 100%; height: auto; }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .search-bar { width: 300px; padding: 10px; margin-bottom: 20px; }
+        .icon-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .icon-item { display: flex; flex-direction: column; align-items: center; }
+        .icon-item img { width: 64px; height: 64px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .icon-item p { font-size: 12px; word-break: break-all; width: 80px; text-align: center; }
     </style>
 </head>
 <body>
-    <h1>Custom icons CAS genesisWorld</h1>
-    <input type="text" id="search" class="search" placeholder="Zoek een icoon..." onkeyup="filterIcons()">
-    <div class="grid" id="iconGrid"></div>
+    <h1>Icon Library</h1>
+    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
+    
+    <div class="icon-grid" id="iconContainer"></div>
 
     <script>
-        async function loadIcons() {
-            const response = await fetch('icons/');
-            const text = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, 'text/html');
-            
-            let icons = [];
-            doc.querySelectorAll('a').forEach(link => {
-                const href = link.getAttribute('href');
-                if (href.endsWith('.svg')) {
-                    icons.push(href);
-                }
-            });
+        const iconBasePath = "icons"; // De map waar iconen staan
 
-            const grid = document.getElementById("iconGrid");
-            grid.innerHTML = "";
-            icons.forEach(icon => {
-                let div = document.createElement("div");
-                div.classList.add("icon");
-                div.innerHTML = `<a href="icons/${icon}" download>
-                    <img src="icons/${icon}" alt="${icon}">
-                </a>`;
-                grid.appendChild(div);
-            });
+        function loadIcons() {
+            fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`)
+                .then(response => response.json())
+                .then(files => {
+                    const container = document.getElementById("iconContainer");
+                    files.forEach(file => {
+                        if (file.name.endsWith(".svg")) {
+                            const iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${file.name}`;
+                            const iconItem = document.createElement("div");
+                            iconItem.classList.add("icon-item");
+                            iconItem.innerHTML = `<img src="${iconPath}" alt="${file.name}" title="${file.name}"><p>${file.name}</p>`;
+                            container.appendChild(iconItem);
+                        }
+                    });
+                })
+                .catch(error => console.error("Fout bij laden van iconen:", error));
         }
 
-        function filterIcons() {
-            let search = document.getElementById("search").value.toLowerCase();
-            document.querySelectorAll('.icon').forEach(div => {
-                let iconName = div.querySelector("img").alt.toLowerCase();
-                div.style.display = iconName.includes(search) ? "block" : "none";
+        function searchIcons() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            document.querySelectorAll(".icon-item").forEach(item => {
+                const name = item.textContent.toLowerCase();
+                item.style.display = name.includes(input) ? "" : "none";
             });
         }
 
