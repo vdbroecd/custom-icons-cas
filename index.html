@@ -5,19 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Icon Library</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .search-bar { width: 300px; padding: 10px; margin-bottom: 20px; }
-        .icon-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        .icon-item { display: flex; flex-direction: column; align-items: center; }
-        .icon-item img { width: 64px; height: 64px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-        .icon-item p { font-size: 12px; word-break: break-all; width: 80px; text-align: center; }
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333;
+            --icon-bg: #f5f5f5;
+            --icon-hover: #e0e0e0;
+            --border-color: #ddd;
+        }
+
+        /* Dark mode */
+        .dark-mode {
+            --bg-color: #1e1e2e;
+            --text-color: #ffffff;
+            --icon-bg: #2a2a3c;
+            --icon-hover: #3b3b52;
+            --border-color: #444;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background: var(--icon-bg);
+            border-radius: 10px;
+            transition: background 0.3s;
+            cursor: pointer;
+            width: 80px;
+        }
+
+        .icon-item:hover {
+            background: var(--icon-hover);
+        }
+
+        .icon-item img {
+            width: 48px;
+            height: 48px;
+            padding: 8px;
+        }
+
+        .icon-item p {
+            font-size: 12px;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .dark-mode-toggle {
+            margin-top: 20px;
+            padding: 10px 15px;
+            border: none;
+            background: var(--icon-bg);
+            color: var(--text-color);
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--icon-hover);
+        }
     </style>
 </head>
 <body>
-    <h1>Icon Library</h1>
-    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
-    
-    <div class="icon-grid" id="iconContainer"></div>
+    <div class="container">
+        <h1>Icon Library</h1>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
+        <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Donkere modus</button>
+        <div class="icon-grid" id="iconContainer"></div>
+    </div>
 
     <script>
         const iconBasePath = "icons"; // De map waar iconen staan
@@ -27,12 +123,13 @@
                 .then(response => response.json())
                 .then(files => {
                     const container = document.getElementById("iconContainer");
+                    container.innerHTML = ""; // Leegmaken voor opnieuw laden
                     files.forEach(file => {
                         if (file.name.endsWith(".svg")) {
                             const iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${file.name}`;
                             const iconItem = document.createElement("div");
                             iconItem.classList.add("icon-item");
-                            iconItem.innerHTML = `<img src="${iconPath}" alt="${file.name}" title="${file.name}"><p>${file.name}</p>`;
+                            iconItem.innerHTML = `<img src="${iconPath}" alt="${file.name}" title="${file.name}"><p>${file.name.replace(".svg", "")}</p>`;
                             container.appendChild(iconItem);
                         }
                     });
@@ -46,6 +143,16 @@
                 const name = item.textContent.toLowerCase();
                 item.style.display = name.includes(input) ? "" : "none";
             });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+        }
+
+        // Controleer of de gebruiker donkere modus heeft ingeschakeld
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
         }
 
         loadIcons();
