@@ -1,15 +1,27 @@
-# SVG Icon Library
+# Icon Library
 
-Dit is een eenvoudige webpagina om SVG-iconen te bekijken en te downloaden.
+## Overzicht
+Deze repository bevat een eenvoudige en stijlvolle iconenbibliotheek voor gebruik in CAS genesisWorld webprojecten. De bibliotheek biedt een overzichtelijke en interactieve manier om iconen te bekijken en te selecteren.
 
-## Hoe te gebruiken?
-1. Upload je SVG-bestanden naar de `icons/` map.
-2. Activeer **GitHub Pages** in de repository-instellingen.
-3. Open de link: `https://jouwgebruikersnaam.github.io/svg-icons/`.
+De iconen zijn op maat gemaakt en geoptimaliseerd voor consistente visuele integratie.
 
-## Functies
-✔ Zoekbalk om snel iconen te vinden  
-✔ Klik op een icoon om het te downloaden  
-✔ Responsive design
+## Kenmerken
+- **Responsief ontwerp**: Past zich automatisch aan verschillende schermformaten aan.
+- **Zoekfunctie**: Snel iconen vinden op naam.
+- **Muisinteractie**: Hover-effecten voor een intuïtieve gebruikerservaring.
+- **Popup-weergave**: Klik op een icoon om een grotere versie te bekijken.
+- **Donkere modus**: Een stijlvol, modern ontwerp met een donkere weergave-optie.
+- **Achtergrondkleuren**:
+  - Iconen met '64' en een hexcode in de bestandsnaam krijgen deze hexcode als achtergrond.
+  - Iconen met '64' en 'Dashboard' in de bestandsnaam krijgen altijd de achtergrondkleur #777777.
+  - Alle andere iconen krijgen een witte achtergrond.
 
-Veel plezier! 🎨🚀
+## Gebruik
+1. Open de webpagina en blader door de beschikbare iconen.
+2. Gebruik de zoekbalk om snel een icoon te vinden.
+3. Klik op een icoon voor een vergrote weergave en aanvullende details.
+
+2025 Dimitri Van den Broeck. All rights reserved.
+
+
+

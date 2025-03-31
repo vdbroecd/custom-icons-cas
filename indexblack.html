@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(28, 28, 28);
+            color: white;
+            text-align: center;
+            margin: 0;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(35, 35, 35);
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .search-bar {
+            width: 300px;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        .group-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .group {
+            background: rgb(35, 35, 35);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .group h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .icon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .icon-item img {
+            width: 64px;
+            height: 64px;
+            padding: 10px;
+            background-color: rgb(48, 48, 48);
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon-item img:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 4px 8px rgb(0, 0, 0);
+        }
+
+        .icon-item p {
+            font-size: 10px;
+            word-break: break-word;
+            width: 80px;
+            margin-top: 10px;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            background: rgb(48, 48, 48);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        .popup img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #1b1b1b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: rgb(35, 35, 35);
+            padding: 10px;
+            color: rgb(255, 255, 255);
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CAS genesisWorld Icon Library</h1>
+    </div>
+    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
+    <div class="group-container" id="groupContainer"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <img id="popupImage" src="" alt="Popup Icon">
+            <p id="popupText"></p>
+            <p id="popupHex"></p>
+            <p id="downloadCount"></p>
+            <button id="downloadBtn">Download</button>
+            <button onclick="closePopup()">Close</button>
+            <button id="copyHexBtn">Copy Hex Code</button>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Dimitri Van den Broeck. All rights reserved.</p>
+    </div>
+    <script>
+        const iconBasePath = "icons";
+        async function loadIcons() {
+            try {
+                let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
+                let files = await response.json();
+                let groupedIcons = {};
+                files.forEach(file => {
+                    if (file.name.endsWith(".svg")) {
+                        let parts = file.name.replace("icon_", "").split(" ");
+                        let groupName = parts[0];
+                        if (!groupedIcons[groupName]) {
+                            groupedIcons[groupName] = [];
+                        }
+                        groupedIcons[groupName].push(file.name);
+                    }
+                });
+                let container = document.getElementById("groupContainer");
+                container.innerHTML = "";
+                Object.keys(groupedIcons).forEach(group => {
+                    let groupDiv = document.createElement("div");
+                    groupDiv.classList.add("group");
+                    let title = document.createElement("h2");
+                    title.textContent = group;
+                    groupDiv.appendChild(title);
+                    let iconGrid = document.createElement("div");
+                    iconGrid.classList.add("icon-grid");
+                    groupedIcons[group].sort((a, b) => {
+                        if (a.includes("64") && !b.includes("64")) return -1;
+                        if (!a.includes("64") && b.includes("64")) return 1;
+                        return a.localeCompare(b);  // Default alphabetical order
+                    });
+                    groupedIcons[group].forEach(iconName => {
+                        let iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${iconName}`;
+                        let iconItem = document.createElement("div");
+                        iconItem.classList.add("icon-item");
+
+                        let bgColor = "white";  // Default background color
+
+                        // Special handling for icons with "64" or "Dashboard" in their name
+                        if (iconName.includes(" 64") || iconName.includes("Dashboard")) {
+                            bgColor = "#555555";  // Special color for these icons
+                        }
+
+                        // Check for hex color code and apply it
+                        let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
+                        if (match) {
+                            bgColor = `#${match[1]}`;  // Extract and apply the hex color
+                        }
+/*
+                      
+*/
+                        iconItem.innerHTML = `
+                            <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
+                            <p>${iconName}</p>
+                        `;
+                        iconGrid.appendChild(iconItem);
+                    });
+                    groupDiv.appendChild(iconGrid);
+                    container.appendChild(groupDiv);
+                });
+            } catch (error) {
+                console.error("Fout bij laden van iconen:", error);
+            }
+        }
+
+        function openPopup(imagePath, iconName, hexColor) {
+            document.getElementById("popupImage").src = imagePath;
+            document.getElementById("popupText").textContent = iconName;
+            document.getElementById("popupHex").textContent = `Hex Color: ${hexColor}`;
+            document.getElementById("copyHexBtn").onclick = () => navigator.clipboard.writeText(hexColor);
+            let count = localStorage.getItem(iconName) || 0;
+            document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
+            document.getElementById("popup").style.display = "flex";
+            document.getElementById("downloadBtn").onclick = function () {
+                localStorage.setItem(iconName, ++count);
+                document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
+                const link = document.createElement("a");
+                link.href = imagePath;
+                link.download = iconName;
+                link.click();
+            };
+        }
+
+        function closePopup() { document.getElementById("popup").style.display = "none"; }
+
+        function searchIcons() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            document.querySelectorAll(".icon-item").forEach(item => item.style.display = item.querySelector("p").textContent.toLowerCase().includes(input) ? "flex" : "none");
+        }
+
+        loadIcons();
+    </script>
+</body>
+
+</html>

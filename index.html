@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Icon Library</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: rgb(28, 28, 28); color: white; text-align: center; margin: 0; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e4e4e4;
+            color: rgb(91, 91, 91);
+            text-align: center;
+            margin: 0;
+        }
 
-        /* Header styling */
         .header {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgb(35, 35, 35);
+            background-color: #ffffff;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+
         .header img {
             height: 50px;
             margin-right: 15px;
         }
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
+
+        .search-bar {
+            width: 300px;
+            padding: 10px;
+            margin: 20px 0;
         }
 
-        .search-bar { width: 300px; padding: 10px; margin: 20px 0; }
-        .group-container { 
+        .group-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-            gap: 20px; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
             padding: 20px;
         }
 
         .group {
-            background: rgb(35, 35, 35);
+            background: white;
             padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -45,11 +53,11 @@
             margin-bottom: 10px;
         }
 
-        .icon-grid { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 10px; 
-            justify-content: center; 
+        .icon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
         }
 
         .icon-item {
@@ -60,18 +68,18 @@
         }
 
         .icon-item img {
-            width: 64px; 
+            width: 64px;
             height: 64px;
             padding: 10px;
             background-color: rgb(48, 48, 48);
             border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 4px rgb(152, 152, 152);
         }
 
         .icon-item img:hover {
             transform: scale(1.1);
             transition: transform 0.2s ease-in-out;
-            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 8px rgb(152, 152, 152);
         }
 
         .icon-item p {
@@ -81,30 +89,33 @@
             margin-top: 10px;
         }
 
-        /* Popup styling */
         .popup {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: #f2f2f28b;
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
         }
+
         .popup-content {
-            background: rgb(48, 48, 48);
+            background: rgba(153, 153, 153, 0.735);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             color: white;
         }
+
         .popup img {
             width: 150px;
             height: 150px;
+            
         }
+
         .popup button {
             margin-top: 10px;
             padding: 10px;
@@ -114,125 +125,108 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .popup button:hover {
             background-color: #0056b3;
         }
-/* Footer Styling */
-.footer {
+
+        .footer {
             background-color: rgb(35, 35, 35);
             padding: 10px;
-            color: white;
+            color: rgb(255, 255, 255);
             text-align: center;
             position: fixed;
             bottom: 0;
             width: 100%;
             font-size: 14px;
         }
+
         .footer a {
             color: white;
             text-decoration: none;
         }
     </style>
 </head>
+
 <body>
-    <!-- Header section with CAS genesisWorld logo -->
     <div class="header">
         <img src="data:image/png;base64,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" alt="CAS genesisWorld Logo">
         <h1>CAS genesisWorld Icon Library</h1>
     </div>
-
     <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
     <div class="group-container" id="groupContainer"></div>
-
-    <!-- Popup Modal for Icon -->
     <div class="popup" id="popup">
         <div class="popup-content">
             <img id="popupImage" src="" alt="Popup Icon">
             <p id="popupText"></p>
-            <p id="popupHex"></p> <!-- Hex color code will appear here -->
+            <p id="popupHex"></p>
+            <p id="downloadCount"></p>
             <button id="downloadBtn">Download</button>
             <button onclick="closePopup()">Close</button>
-            <button id="copyHexBtn">Copy Hex Code</button> <!-- Copy hex code button -->
+            <button id="copyHexBtn">Copy Hex Code</button>
         </div>
     </div>
-<!-- Footer section -->
-<div class="footer">
-    <p>&copy; 2025 Dimitri Van den Broeck. All rights reserved.</p>
-</div>
-
+    <div class="footer">
+        <p>&copy; 2025 Dimitri Van den Broeck. All rights reserved.</p>
+    </div>
     <script>
-        const iconBasePath = "icons"; // De map waar iconen staan
-
+        const iconBasePath = "icons";
         async function loadIcons() {
             try {
                 let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
                 let files = await response.json();
-
                 let groupedIcons = {};
-
-                // Groep iconen op basis van bestandsnaam
                 files.forEach(file => {
                     if (file.name.endsWith(".svg")) {
                         let parts = file.name.replace("icon_", "").split(" ");
-                        let groupName = parts[0]; // Groep gebaseerd op het eerste woord na "icon_"
-
+                        let groupName = parts[0];
                         if (!groupedIcons[groupName]) {
                             groupedIcons[groupName] = [];
                         }
                         groupedIcons[groupName].push(file.name);
                     }
                 });
-
                 let container = document.getElementById("groupContainer");
                 container.innerHTML = "";
-
                 Object.keys(groupedIcons).forEach(group => {
                     let groupDiv = document.createElement("div");
                     groupDiv.classList.add("group");
-
-                    if (groupedIcons[group].length > 5) {
-                        groupDiv.classList.add("large");
-                    } else {
-                        groupDiv.classList.add("small");
-                    }
-
                     let title = document.createElement("h2");
                     title.textContent = group;
                     groupDiv.appendChild(title);
-
                     let iconGrid = document.createElement("div");
                     iconGrid.classList.add("icon-grid");
-
-                    // Sorteer de iconen zodat de 64-iconen bovenaan komen
-                    let sortedIcons = groupedIcons[group].sort((a, b) => {
-                        let a64 = a.includes("64");
-                        let b64 = b.includes("64");
-                        return (b64 - a64); // Zorg ervoor dat de 64 iconen bovenaan komen
+                    groupedIcons[group].sort((a, b) => {
+                        if (a.includes("64") && !b.includes("64")) return -1;
+                        if (!a.includes("64") && b.includes("64")) return 1;
+                        return a.localeCompare(b);  // Default alphabetical order
                     });
-
-                    sortedIcons.forEach(iconName => {
+                    groupedIcons[group].forEach(iconName => {
                         let iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${iconName}`;
                         let iconItem = document.createElement("div");
                         iconItem.classList.add("icon-item");
 
-                        let bgColor = "rgb(48, 48, 48)"; // Standaard achtergrond
+                        let bgColor = "white";  // Default background color
 
-                        // Controleer of het icoon een "64" bevat en een hex-kleur heeft
-                        let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
-                        if (match) {
-                            bgColor = `#${match[1]}`; // Hex-code als achtergrond
+                        // Special handling for icons with "64" or "Dashboard" in their name
+                        if (iconName.includes(" 64") || iconName.includes("Dashboard")) {
+                            bgColor = "#555555";  // Special color for these icons
                         }
 
-                        // Voeg inline achtergrondkleur toe voor de 64-iconen
+                        // Check for hex color code and apply it
+                        let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
+                        if (match) {
+                            bgColor = `#${match[1]}`;  // Extract and apply the hex color
+                        }
+/*
+                      
+*/
                         iconItem.innerHTML = `
-                            <img src="${iconPath}" alt="${iconName}" title="${iconName}" 
-                                onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')"
-                                style="background-color: ${bgColor}; border-radius: 5px; padding: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                            <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
                             <p>${iconName}</p>
                         `;
                         iconGrid.appendChild(iconItem);
                     });
-
                     groupDiv.appendChild(iconGrid);
                     container.appendChild(groupDiv);
                 });
@@ -241,51 +235,33 @@
             }
         }
 
-        // Open de popup voor het geselecteerde icoon
         function openPopup(imagePath, iconName, hexColor) {
             document.getElementById("popupImage").src = imagePath;
             document.getElementById("popupText").textContent = iconName;
             document.getElementById("popupHex").textContent = `Hex Color: ${hexColor}`;
+            document.getElementById("copyHexBtn").onclick = () => navigator.clipboard.writeText(hexColor);
+            let count = localStorage.getItem(iconName) || 0;
+            document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
             document.getElementById("popup").style.display = "flex";
-
-            // Set the download link for the icon
-            document.getElementById("downloadBtn").onclick = function() {
+            document.getElementById("downloadBtn").onclick = function () {
+                localStorage.setItem(iconName, ++count);
+                document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
                 const link = document.createElement("a");
                 link.href = imagePath;
                 link.download = iconName;
                 link.click();
             };
-
-            // Set the hex color to be copied
-            document.getElementById("copyHexBtn").onclick = function() {
-                navigator.clipboard.writeText(hexColor).then(() => {
-                    alert("Hex code copied to clipboard!");
-                }).catch(err => {
-                    console.error('Error copying hex code: ', err);
-                });
-            };
         }
+
+        function closePopup() { document.getElementById("popup").style.display = "none"; }
 
         function searchIcons() {
             let input = document.getElementById("searchInput").value.toLowerCase();
-            let iconItems = document.querySelectorAll(".icon-item");
-
-            iconItems.forEach(item => {
-                let iconName = item.querySelector("p").textContent.toLowerCase();
-                if (iconName.includes(input)) {
-                    item.style.display = "flex"; // Tonen als er een match is
-                } else {
-                    item.style.display = "none"; // Verbergen als er geen match is
-                }
-            });
-        }
-
-        // Sluit de popup
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
+            document.querySelectorAll(".icon-item").forEach(item => item.style.display = item.querySelector("p").textContent.toLowerCase().includes(input) ? "flex" : "none");
         }
 
         loadIcons();
     </script>
 </body>
+
 </html>
