@@ -197,8 +197,8 @@
                     let iconGrid = document.createElement("div");
                     iconGrid.classList.add("icon-grid");
                     groupedIcons[group].sort((a, b) => {
-                        if (a.includes("64") && !b.includes("64")) return -1;
-                        if (!a.includes("64") && b.includes("64")) return 1;
+                        if (a.includes("64") && !b.includes(" 64")) return -1;
+                        if (!a.includes(" 64") && b.includes("64")) return 1;
                         return a.localeCompare(b);  // Default alphabetical order
                     });
                     groupedIcons[group].forEach(iconName => {
@@ -218,9 +218,7 @@
                         if (match) {
                             bgColor = `#${match[1]}`;  // Extract and apply the hex color
                         }
-/*
-                      
-*/
+
                         iconItem.innerHTML = `
                             <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
                             <p>${iconName}</p>
