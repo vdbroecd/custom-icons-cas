@@ -95,7 +95,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #f2f2f28b;
+            background: #3b3b3bd7;
             display: none;
             justify-content: center;
             align-items: center;
@@ -103,11 +103,12 @@
         }
 
         .popup-content {
-            background: rgba(153, 153, 153, 0.735);
+            background: rgb(46, 46, 46);
             padding: 20px;
             border-radius: 10px;
             text-align: center;
             color: white;
+            font-size: 12px;
         }
 
         .popup img {
@@ -127,7 +128,7 @@
         }
 
         .popup button:hover {
-            background-color: #0056b3;
+            background-color: red;
         }
 
         .footer {
@@ -145,6 +146,67 @@
             color: white;
             text-decoration: none;
         }
+        /* Button naast de zoekbalk */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.log-button {
+    padding: 8px 12px;
+    background-color: #1b1b1b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #909090d7;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.modal-content {
+    background: rgba(92, 92, 92, 0.798)
+    padding: 20px;
+    width: 400px;
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 8px;
+    position: relative;
+    font-size: 12px;
+}*/
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    margin: 10px 0;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    color: white;
+}
+
     </style>
 </head>
 
@@ -154,6 +216,11 @@
         <h1>CAS genesisWorld Icon Library</h1>
     </div>
     <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
+    <button class="log-button" onclick="openModal()">📜 Git Log</button>
+    
+        
+    </div>
+    
     <div class="group-container" id="groupContainer"></div>
     <div class="popup" id="popup">
         <div class="popup-content">
@@ -166,6 +233,17 @@
             <button id="copyHexBtn">Copy Hex Code</button>
         </div>
     </div>
+    <div class="popup" id="gitModal">
+        <div class="popup-content">
+            
+            <h2>Laatste Git Commits</h2>
+            <ul id="commit-list">Commits worden geladen...</ul>
+            
+            <p id="popupText"></p>
+            <button onclick="closePopupgitModal()">Close</button>
+        </div>
+    </div>
+    
     <div class="footer">
         <p>&copy; 2025 Dimitri Van den Broeck. All rights reserved.</p>
     </div>
@@ -251,7 +329,15 @@
             };
         }
 
-        function closePopup() { document.getElementById("popup").style.display = "none"; }
+        function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+function closePopupgitModal() {
+    document.getElementById("gitModal").style.display = "none";  // Correcte modal
+}
+
+        
 
         function searchIcons() {
             let input = document.getElementById("searchInput").value.toLowerCase();
@@ -260,6 +346,56 @@
 
         loadIcons();
     </script>
+    <script>
+        function openModal() {
+            document.getElementById("gitModal").style.display = "flex";
+            fetchGitCommits();
+        }
+    
+        function closeModal() {
+            document.getElementById("gitModal").style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            let modal = document.getElementById("gitModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    
+        async function fetchGitCommits() {
+    const repoOwner = "vdbroecd";
+    const repoName = "custom-icons-cas";
+
+    try {
+        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/commits`);
+        const commits = await response.json();
+
+        let commitList = "";
+        commits.forEach(commit => {
+            let author = commit.commit.author.name;
+            let message = commit.commit.message;
+            let dateTime = new Date(commit.commit.author.date);
+            
+            // Datum en tijd formatteren
+            let options = { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" };
+            let formattedDate = dateTime.toLocaleDateString("nl-NL", options);
+
+            commitList += `<li>
+    <strong>${author}</strong>: ${message} <br>
+    📅 ${formattedDate} 
+    (<a href="${commit.html_url}" target="_blank" style="color: grey; display: inline;">Bekijk commit</a>)
+</li>`;
+        });
+
+        document.getElementById("commit-list").innerHTML = commitList;
+    } catch (error) {
+        document.getElementById("commit-list").innerHTML = "Fout bij het ophalen van commits.";
+    }
+}
+
+    </script>
+    
 </body>
 
 </html>
