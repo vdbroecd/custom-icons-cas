@@ -250,20 +250,20 @@ li {
     <script>
         const iconBasePath = "icons";
         async function loadIcons() {
-            try {
-                let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
-                let files = await response.json();
-                let groupedIcons = {};
-                files.forEach(file => {
-                    if (file.name.endsWith(".svg")) {
-                        let parts = file.name.replace("icon_", "").split(" ");
-                        let groupName = parts[0];
-                        if (!groupedIcons[groupName]) {
-                            groupedIcons[groupName] = [];
-                        }
-                        groupedIcons[groupName].push(file.name);
-                    }
-                });
+    try {
+        let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
+        let files = await response.json();
+        let groupedIcons = {};
+        files.forEach(file => {
+            if (file.name.endsWith(".svg") || file.name.endsWith(".png")) {  // Controleer ook op .png
+                let parts = file.name.replace("icon_", "").split(" ");
+                let groupName = parts[0];
+                if (!groupedIcons[groupName]) {
+                    groupedIcons[groupName] = [];
+                }
+                groupedIcons[groupName].push(file.name);
+            }
+        });
                 let container = document.getElementById("groupContainer");
                 container.innerHTML = "";
                 Object.keys(groupedIcons).forEach(group => {
