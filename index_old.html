@@ -216,9 +216,8 @@ li {
         <h1>CAS genesisWorld Icon Library</h1>
     </div>
     <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
-    
     <button class="log-button" onclick="openModal()">📜 Git Log</button>
-<span id="iconCount" style="font-size: 14px; margin-left: 10px; color: #555;">Aantal iconen: 0</span>
+    
         
     </div>
     
@@ -255,11 +254,8 @@ li {
         let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
         let files = await response.json();
         let groupedIcons = {};
-        let totalFiles = 0; // Initialize counter
-
         files.forEach(file => {
-            if (file.name.endsWith(".svg") || file.name.endsWith(".png")) { // Check for valid file types
-                totalFiles++; // Increment counter
+            if (file.name.endsWith(".svg") || file.name.endsWith(".png")) {  // Controleer ook op .png
                 let parts = file.name.replace("icon_", "").split(" ");
                 let groupName = parts[0];
                 if (!groupedIcons[groupName]) {
@@ -268,56 +264,52 @@ li {
                 groupedIcons[groupName].push(file.name);
             }
         });
+                let container = document.getElementById("groupContainer");
+                container.innerHTML = "";
+                Object.keys(groupedIcons).forEach(group => {
+                    let groupDiv = document.createElement("div");
+                    groupDiv.classList.add("group");
+                    let title = document.createElement("h2");
+                    title.textContent = group;
+                    groupDiv.appendChild(title);
+                    let iconGrid = document.createElement("div");
+                    iconGrid.classList.add("icon-grid");
+                    groupedIcons[group].sort((a, b) => {
+                        if (a.includes("64") && !b.includes(" 64")) return -1;
+                        if (!a.includes(" 64") && b.includes("64")) return 1;
+                        return a.localeCompare(b);  // Default alphabetical order
+                    });
+                    groupedIcons[group].forEach(iconName => {
+                        let iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${iconName}`;
+                        let iconItem = document.createElement("div");
+                        iconItem.classList.add("icon-item");
 
-        // Update the file count in the UI
-        document.getElementById("iconCount").textContent = `Aantal iconen: ${totalFiles}`;
+                        let bgColor = "white";  // Default background color
 
-        let container = document.getElementById("groupContainer");
-        container.innerHTML = "";
-        Object.keys(groupedIcons).forEach(group => {
-            let groupDiv = document.createElement("div");
-            groupDiv.classList.add("group");
-            let title = document.createElement("h2");
-            title.textContent = group;
-            groupDiv.appendChild(title);
-            let iconGrid = document.createElement("div");
-            iconGrid.classList.add("icon-grid");
-            groupedIcons[group].sort((a, b) => {
-                if (a.includes("64") && !b.includes(" 64")) return -1;
-                if (!a.includes(" 64") && b.includes("64")) return 1;
-                return a.localeCompare(b); // Default alphabetical order
-            });
-            groupedIcons[group].forEach(iconName => {
-                let iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${iconName}`;
-                let iconItem = document.createElement("div");
-                iconItem.classList.add("icon-item");
+                        // Special handling for icons with "64" or "Dashboard" in their name
+                        if (iconName.includes(" 64") || iconName.includes("Dashboard")) {
+                            bgColor = "#555555";  // Special color for these icons
+                        }
 
-                let bgColor = "white"; // Default background color
+                        // Check for hex color code and apply it
+                        let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
+                        if (match) {
+                            bgColor = `#${match[1]}`;  // Extract and apply the hex color
+                        }
 
-                // Special handling for icons with "64" or "Dashboard" in their name
-                if (iconName.includes(" 64") || iconName.includes("Dashboard")) {
-                    bgColor = "#555555"; // Special color for these icons
-                }
-
-                // Check for hex color code and apply it
-                let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
-                if (match) {
-                    bgColor = `#${match[1]}`; // Extract and apply the hex color
-                }
-
-                iconItem.innerHTML = `
-                    <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
-                    <p>${iconName}</p>
-                `;
-                iconGrid.appendChild(iconItem);
-            });
-            groupDiv.appendChild(iconGrid);
-            container.appendChild(groupDiv);
-        });
-    } catch (error) {
-        console.error("Fout bij laden van iconen:", error);
-    }
-}
+                        iconItem.innerHTML = `
+                            <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
+                            <p>${iconName}</p>
+                        `;
+                        iconGrid.appendChild(iconItem);
+                    });
+                    groupDiv.appendChild(iconGrid);
+                    container.appendChild(groupDiv);
+                });
+            } catch (error) {
+                console.error("Fout bij laden van iconen:", error);
+            }
+        }
 
         function openPopup(imagePath, iconName, hexColor) {
             document.getElementById("popupImage").src = imagePath;
