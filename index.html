@@ -1,431 +1,824 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Icon Library</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e4e4e4;
-            color: rgb(91, 91, 91);
-            text-align: center;
-            margin: 0;
-            padding-bottom: 100px; /* Voeg extra ruimte onderaan toe */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAS genesisWorld · Icon Library</title>
+<style>
+  :root {
+    --ha-blue: #03a9f4;
+    --ha-blue-dark: #0288d1;
+    --ha-surface: #fafafa;
+    --ha-card: #ffffff;
+    --ha-border: #e0e0e0;
+    --ha-text-primary: #212121;
+    --ha-text-secondary: #727272;
+    --ha-shadow-sm: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
+    --ha-shadow-md: 0 3px 6px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
+    --ha-radius: 12px;
+    --ha-radius-sm: 8px;
+    --ha-radius-xs: 4px;
+    --accent: #03a9f4;
+  }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .header img {
-            height: 50px;
-            margin-right: 15px;
-        }
-
-        .search-bar {
-            width: 300px;
-            padding: 10px;
-            margin: 20px 0;
-        }
-
-        .group-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .group {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .group h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .icon-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .icon-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .icon-item img {
-            width: 64px;
-            height: 64px;
-            padding: 10px;
-            background-color: rgb(48, 48, 48);
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgb(152, 152, 152);
-        }
-
-        .icon-item img:hover {
-            transform: scale(1.1);
-            transition: transform 0.2s ease-in-out;
-            box-shadow: 0 4px 8px rgb(152, 152, 152);
-        }
-
-        .icon-item p {
-            font-size: 10px;
-            word-break: break-word;
-            width: 80px;
-            margin-top: 10px;
-        }
-
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #3b3b3bd7;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .popup-content {
-            background: rgb(46, 46, 46);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            color: white;
-            font-size: 12px;
-        }
-
-        .popup img {
-            width: 150px;
-            height: 150px;
-            
-        }
-
-        .popup button {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #1b1b1b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .popup button:hover {
-            background-color: red;
-        }
-
-        .footer {
-            background-color: rgb(35, 35, 35);
-            padding: 10px;
-            color: rgb(255, 255, 255);
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: none;
-        }
-        /* Button naast de zoekbalk */
-.search-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.log-button {
-    padding: 8px 12px;
-    background-color: #1b1b1b;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* Modal styling */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #909090d7;
-    justify-content: center;
-    align-items: center;
-}
-
-/*.modal-content {
-    background: rgba(92, 92, 92, 0.798)
-    padding: 20px;
-    width: 400px;
-    max-height: 500px;
-    overflow-y: auto;
-    border-radius: 8px;
-    position: relative;
-    font-size: 12px;
-}*/
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 10px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-ul {
-    padding: 0;
-    list-style-type: none;
-}
-
-li {
-    margin: 10px 0;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-    color: white;
-}
-
-    </style>
-</head>
-
-<body>
-    <script>
-  // Stel je wachtwoord hier in
-  const wachtwoord = "InfomatgW25";
-
-  // Vraag om wachtwoord bij laden van de pagina
-  let toegang = false;
-  while (!toegang) {
-    const poging = prompt("Voer het wachtwoord in om toegang te krijgen tot de site:");
-    if (poging === null) {
-      // gebruiker annuleert: sluit de pagina
-      document.body.innerHTML = "<h2>Toegang geweigerd</h2>";
-      break;
-    }
-    if (poging === wachtwoord) {
-      toegang = true; // correct wachtwoord
-    } else {
-      alert("Wachtwoord incorrect. Probeer opnieuw.");
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ha-surface: #111111;
+      --ha-card: #1c1c1c;
+      --ha-border: #2c2c2c;
+      --ha-text-primary: #e1e1e1;
+      --ha-text-secondary: #9e9e9e;
+      --ha-shadow-sm: 0 1px 3px rgba(0,0,0,.4);
+      --ha-shadow-md: 0 3px 6px rgba(0,0,0,.35);
     }
   }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--ha-surface);
+    color: var(--ha-text-primary);
+    margin: 0;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ───────────────────────────────────────────── */
+  .header {
+    background: var(--ha-card);
+    border-bottom: 1px solid var(--ha-border);
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--ha-shadow-sm);
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 60px;
+  }
+  .header-logo {
+    height: 32px;
+    width: auto;
+    flex-shrink: 0;
+  }
+  .header-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ha-text-primary);
+    white-space: nowrap;
+  }
+  .header-title span {
+    color: var(--ha-blue);
+  }
+  .header-spacer { flex: 1; }
+  .header-meta {
+    font-size: 12px;
+    color: var(--ha-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .pill-count {
+    background: var(--ha-blue);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    line-height: 1.6;
+  }
+
+  /* ── TOOLBAR ──────────────────────────────────────────── */
+  .toolbar {
+    background: var(--ha-card);
+    border-bottom: 1px solid var(--ha-border);
+    padding: 0 20px;
+  }
+  .toolbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 56px;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+    max-width: 380px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ha-text-secondary);
+    pointer-events: none;
+  }
+  .search-wrap input {
+    width: 100%;
+    height: 36px;
+    background: var(--ha-surface);
+    border: 1px solid var(--ha-border);
+    border-radius: var(--ha-radius-sm);
+    padding: 0 12px 0 36px;
+    font-size: 14px;
+    color: var(--ha-text-primary);
+    outline: none;
+    transition: border-color .15s;
+    -webkit-appearance: none;
+  }
+  .search-wrap input::placeholder { color: var(--ha-text-secondary); }
+  .search-wrap input:focus { border-color: var(--ha-blue); }
+  .search-wrap input::-webkit-search-cancel-button { display: none; }
+
+  .clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ha-text-secondary);
+    padding: 2px;
+    line-height: 1;
+    display: none;
+  }
+  .clear-btn.visible { display: block; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    height: 36px;
+    border: 1px solid var(--ha-border);
+    border-radius: var(--ha-radius-sm);
+    background: var(--ha-card);
+    color: var(--ha-text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .12s, border-color .12s;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--ha-surface); border-color: var(--ha-blue); }
+  .btn svg { flex-shrink: 0; }
+  .btn-primary {
+    background: var(--ha-blue);
+    border-color: var(--ha-blue-dark);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--ha-blue-dark); border-color: var(--ha-blue-dark); }
+
+  #noResults {
+    display: none;
+    max-width: 1280px;
+    margin: 60px auto;
+    text-align: center;
+    color: var(--ha-text-secondary);
+    font-size: 15px;
+    padding: 0 20px;
+  }
+  #noResults svg { display: block; margin: 0 auto 16px; opacity: .3; }
+
+  /* ── MAIN CONTENT ─────────────────────────────────────── */
+  .main {
+    max-width: 1280px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+  }
+
+  .group-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ha-text-secondary);
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--ha-border);
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .group-label-count {
+    font-weight: 500;
+    font-size: 11px;
+    background: var(--ha-surface);
+    border: 1px solid var(--ha-border);
+    border-radius: 20px;
+    padding: 1px 8px;
+    color: var(--ha-text-secondary);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .group-section { margin: 0 0 32px; }
+
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .icon-item {
+    background: var(--ha-card);
+    border: 1px solid var(--ha-border);
+    border-radius: var(--ha-radius-sm);
+    padding: 12px 8px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: border-color .12s, box-shadow .12s, transform .1s;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .icon-item:hover {
+    border-color: var(--ha-blue);
+    box-shadow: var(--ha-shadow-md);
+    transform: translateY(-1px);
+    z-index: 1;
+  }
+  .icon-item:focus-visible {
+    outline: 2px solid var(--ha-blue);
+    outline-offset: 2px;
+  }
+  .icon-item:active { transform: translateY(0); }
+
+  .icon-thumb-wrap {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--ha-radius-xs);
+    overflow: hidden;
+    flex-shrink: 0;
+    padding: 5px;
+  }
+  .icon-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .icon-name {
+    font-size: 10px;
+    color: var(--ha-text-secondary);
+    text-align: center;
+    line-height: 1.3;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 88px;
+  }
+
+  /* ── MODAL OVERLAY ────────────────────────────────────── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 900;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    backdrop-filter: blur(2px);
+  }
+  .overlay.open { display: flex; }
+
+  .modal {
+    background: var(--ha-card);
+    border-radius: var(--ha-radius);
+    padding: 28px 28px 24px;
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    animation: modal-in .15s ease;
+  }
+  @keyframes modal-in {
+    from { opacity: 0; transform: scale(.95) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ha-text-secondary);
+    padding: 4px;
+    line-height: 1;
+    border-radius: var(--ha-radius-xs);
+    transition: background .1s;
+  }
+  .modal-close:hover { background: var(--ha-surface); }
+
+  .modal-icon-wrap {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    border-radius: var(--ha-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .modal-icon-wrap img { width: 100%; height: 100%; object-fit: contain; }
+
+  .modal-filename {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    word-break: break-all;
+    margin: 0 0 6px;
+  }
+  .modal-hex {
+    font-size: 12px;
+    text-align: center;
+    color: var(--ha-text-secondary);
+    font-family: "SF Mono", "Fira Code", monospace;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .hex-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,.15);
+    vertical-align: middle;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .modal-actions .btn { flex: 1; justify-content: center; }
+
+  /* ── GIT LOG MODAL ────────────────────────────────────── */
+  .git-modal {
+    max-width: 560px;
+  }
+  .git-modal h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: var(--ha-text-primary);
+  }
+  .commit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 380px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .commit-list::-webkit-scrollbar { width: 4px; }
+  .commit-list::-webkit-scrollbar-thumb { background: var(--ha-border); border-radius: 4px; }
+
+  .commit-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ha-border);
+    font-size: 13px;
+  }
+  .commit-item:last-child { border-bottom: none; }
+  .commit-msg {
+    font-weight: 500;
+    color: var(--ha-text-primary);
+    margin: 0 0 4px;
+    line-height: 1.4;
+  }
+  .commit-meta {
+    color: var(--ha-text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .commit-author { font-weight: 500; }
+  .commit-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--ha-border);
+    display: inline-block;
+  }
+  .commit-link {
+    color: var(--ha-blue);
+    text-decoration: none;
+    font-size: 12px;
+  }
+  .commit-link:hover { text-decoration: underline; }
+
+  /* ── LOADING / EMPTY STATES ───────────────────────────── */
+  .loading-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .skeleton {
+    background: var(--ha-card);
+    border: 1px solid var(--ha-border);
+    border-radius: var(--ha-radius-sm);
+    height: 110px;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .45; }
+  }
+
+  /* ── TOAST ────────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 88px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #212121;
+    color: #fff;
+    font-size: 13px;
+    padding: 9px 18px;
+    border-radius: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+    z-index: 1000;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--ha-card);
+    border-top: 1px solid var(--ha-border);
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ha-text-secondary);
+    z-index: 50;
+  }
+
+  /* ── MOBILE ───────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .header-title { font-size: 14px; }
+    .toolbar-inner { height: auto; padding: 10px 0; gap: 8px; }
+    .search-wrap { max-width: 100%; }
+    .icon-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+    .modal { padding: 20px 16px 18px; }
+    .modal-icon-wrap { width: 80px; height: 80px; }
+    .modal-actions { flex-direction: column; }
+    .btn { font-size: 13px; }
+    .git-modal { max-width: 100%; }
+  }
+  @media (max-width: 400px) {
+    .header-meta { display: none; }
+    .icon-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header" role="banner">
+  <div class="header-inner">
+    <img class="header-logo" src="data:image/png;base64,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" alt="CAS genesisWorld logo">
+    <span class="header-title">CAS genesisWorld <span>Icon Library</span></span>
+    <div class="header-spacer"></div>
+    <div class="header-meta">
+      <span id="iconCount" class="pill-count" aria-live="polite" aria-label="Aantal iconen">0</span>
+      <span>iconen</span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar" role="search">
+  <div class="toolbar-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" placeholder="Zoek op naam…" oninput="searchIcons()" autocomplete="off" aria-label="Zoek iconen">
+      <button class="clear-btn" id="clearBtn" aria-label="Zoekopdracht wissen" onclick="clearSearch()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <button class="btn" onclick="openGitModal()" aria-label="Git log bekijken">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 12h6m6 0h6M12 3v6m0 6v6"/></svg>
+      Git log
+    </button>
+  </div>
+</div>
+
+<main class="main" id="main" aria-label="Iconenbibliotheek">
+  <div id="loadingState" aria-live="polite" aria-label="Iconen laden…">
+    <div class="group-section">
+      <div class="loading-grid">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+    </div>
+  </div>
+  <div id="groupContainer"></div>
+  <div id="noResults" role="status">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+    Geen iconen gevonden voor "<span id="searchTerm"></span>"
+  </div>
+</main>
+
+<!-- Icon detail popup -->
+<div class="overlay" id="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle" onclick="handleOverlayClick(event,'popup')">
+  <div class="modal" role="document">
+    <button class="modal-close" onclick="closePopup()" aria-label="Sluiten">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-icon-wrap" id="popupIconWrap">
+      <img id="popupImage" src="" alt="">
+    </div>
+    <p class="modal-filename" id="popupTitle"></p>
+    <p class="modal-hex" id="popupHex"></p>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="downloadBtn" aria-label="Icoon downloaden">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </button>
+      <button class="btn" id="copyHexBtn" aria-label="Hex-code kopiëren">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Kopieer hex
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Git log popup -->
+<div class="overlay" id="gitModal" role="dialog" aria-modal="true" aria-labelledby="gitModalTitle" onclick="handleOverlayClick(event,'gitModal')">
+  <div class="modal git-modal" role="document">
+    <button class="modal-close" onclick="closeGitModal()" aria-label="Sluiten">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <h2 id="gitModalTitle">Laatste wijzigingen</h2>
+    <ul class="commit-list" id="commit-list" aria-live="polite">
+      <li class="commit-item"><span class="commit-msg">Commits laden…</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="footer">
+  <span>© 2025 Dimitri Van den Broeck — CAS genesisWorld Icon Library</span>
+</footer>
+
+<script>
+const iconBasePath = "icons";
+let allIcons = {};
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+function getBgColor(iconName) {
+  const hexMatch = iconName.match(/64 ([A-Fa-f0-9]{6})/);
+  if (hexMatch) return "#" + hexMatch[1];
+  if (iconName.includes(" 64") || iconName.toLowerCase().includes("dashboard")) return "#555555";
+  return "white";
+}
+
+function renderGroups(groupedIcons) {
+  const container = document.getElementById("groupContainer");
+  container.innerHTML = "";
+  const groups = Object.keys(groupedIcons).sort();
+
+  groups.forEach(group => {
+    const icons = groupedIcons[group];
+    const section = document.createElement("section");
+    section.classList.add("group-section");
+    section.dataset.group = group;
+
+    const label = document.createElement("div");
+    label.className = "group-label";
+    label.innerHTML = `<span>${escHtml(group)}</span><span class="group-label-count">${icons.length}</span>`;
+    section.appendChild(label);
+
+    const grid = document.createElement("div");
+    grid.className = "icon-grid";
+    grid.setAttribute("role", "list");
+
+    icons.sort((a, b) => {
+      if (a.includes("64") && !b.includes(" 64")) return -1;
+      if (!a.includes(" 64") && b.includes("64")) return 1;
+      return a.localeCompare(b);
+    }).forEach(iconName => {
+      const iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${encodeURIComponent(iconName)}`;
+      const bgColor = getBgColor(iconName);
+      const displayName = iconName.replace(/\.[^.]+$/, "").replace("icon_", "");
+
+      const item = document.createElement("button");
+      item.className = "icon-item";
+      item.setAttribute("role", "listitem");
+      item.setAttribute("aria-label", `${displayName} — klik om te openen`);
+      item.dataset.iconname = iconName.toLowerCase();
+      item.onclick = () => openPopup(iconPath, iconName, bgColor);
+
+      item.innerHTML = `
+        <div class="icon-thumb-wrap" style="background:${escHtml(bgColor)};">
+          <img src="${escHtml(iconPath)}" alt="" loading="lazy">
+        </div>
+        <span class="icon-name">${escHtml(displayName)}</span>
+      `;
+      grid.appendChild(item);
+    });
+
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
+
+async function loadIcons() {
+  try {
+    const response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
+    if (!response.ok) throw new Error("GitHub API fout: " + response.status);
+    const files = await response.json();
+
+    let totalFiles = 0;
+    files.forEach(file => {
+      if (!file.name.endsWith(".svg") && !file.name.endsWith(".png")) return;
+      totalFiles++;
+      const parts = file.name.replace("icon_", "").split(" ");
+      const groupName = parts[0];
+      if (!allIcons[groupName]) allIcons[groupName] = [];
+      allIcons[groupName].push(file.name);
+    });
+
+    document.getElementById("iconCount").textContent = totalFiles;
+    document.getElementById("loadingState").style.display = "none";
+    renderGroups(allIcons);
+  } catch (err) {
+    document.getElementById("loadingState").innerHTML =
+      `<p style="text-align:center;color:var(--ha-text-secondary);padding:40px 20px;">Fout bij laden: ${escHtml(err.message)}</p>`;
+    console.error(err);
+  }
+}
+
+function searchIcons() {
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  const clearBtn = document.getElementById("clearBtn");
+  clearBtn.classList.toggle("visible", q.length > 0);
+
+  let totalVisible = 0;
+  document.querySelectorAll(".group-section").forEach(section => {
+    let sectionVisible = 0;
+    section.querySelectorAll(".icon-item").forEach(item => {
+      const match = !q || item.dataset.iconname.includes(q);
+      item.style.display = match ? "" : "none";
+      if (match) sectionVisible++;
+    });
+    section.style.display = sectionVisible > 0 ? "" : "none";
+    totalVisible += sectionVisible;
+    const countEl = section.querySelector(".group-label-count");
+    if (countEl) countEl.textContent = sectionVisible;
+  });
+
+  const noResults = document.getElementById("noResults");
+  noResults.style.display = totalVisible === 0 && q ? "block" : "none";
+  document.getElementById("searchTerm").textContent = q;
+}
+
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  searchIcons();
+  document.getElementById("searchInput").focus();
+}
+
+function openPopup(imagePath, iconName, hexColor) {
+  const popup = document.getElementById("popup");
+  document.getElementById("popupImage").src = imagePath;
+  document.getElementById("popupImage").alt = iconName;
+  document.getElementById("popupTitle").textContent = iconName;
+  document.getElementById("popupIconWrap").style.background = hexColor;
+
+  const isWhite = hexColor === "white" || hexColor === "#ffffff";
+  if (isWhite) {
+    document.getElementById("popupIconWrap").style.border = "1px solid var(--ha-border)";
+  } else {
+    document.getElementById("popupIconWrap").style.border = "none";
+  }
+
+  const hexEl = document.getElementById("popupHex");
+  if (hexColor && hexColor !== "white") {
+    hexEl.innerHTML = `<span class="hex-swatch" style="background:${escHtml(hexColor)};"></span>${escHtml(hexColor)}`;
+  } else {
+    hexEl.textContent = "";
+  }
+
+  document.getElementById("copyHexBtn").style.display = hexColor && hexColor !== "white" ? "" : "none";
+  document.getElementById("copyHexBtn").onclick = () => {
+    navigator.clipboard.writeText(hexColor).then(() => showToast("Hex-code gekopieerd"));
+  };
+
+  document.getElementById("downloadBtn").onclick = () => {
+    const link = document.createElement("a");
+    link.href = imagePath;
+    link.download = iconName;
+    link.click();
+    showToast("Download gestart");
+  };
+
+  popup.classList.add("open");
+  document.body.style.overflow = "hidden";
+  document.getElementById("popupTitle").focus();
+}
+
+function closePopup() {
+  document.getElementById("popup").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function handleOverlayClick(e, id) {
+  if (e.target === document.getElementById(id)) {
+    if (id === "popup") closePopup();
+    else closeGitModal();
+  }
+}
+
+function closeGitModal() {
+  document.getElementById("gitModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function openGitModal() {
+  document.getElementById("gitModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+  fetchGitCommits();
+}
+
+async function fetchGitCommits() {
+  const list = document.getElementById("commit-list");
+  list.innerHTML = '<li class="commit-item"><span class="commit-msg">Laden…</span></li>';
+  try {
+    const res = await fetch("https://api.github.com/repos/vdbroecd/custom-icons-cas/commits");
+    if (!res.ok) throw new Error("Status " + res.status);
+    const commits = await res.json();
+    const opts = { day:"2-digit", month:"long", year:"numeric", hour:"2-digit", minute:"2-digit" };
+    list.innerHTML = commits.map(c => {
+      const date = new Date(c.commit.author.date).toLocaleDateString("nl-NL", opts);
+      return `<li class="commit-item">
+        <p class="commit-msg">${escHtml(c.commit.message.split("\n")[0])}</p>
+        <div class="commit-meta">
+          <span class="commit-author">${escHtml(c.commit.author.name)}</span>
+          <span class="commit-dot"></span>
+          <span>${escHtml(date)}</span>
+          <span class="commit-dot"></span>
+          <a href="${escHtml(c.html_url)}" target="_blank" rel="noopener" class="commit-link">Bekijk →</a>
+        </div>
+      </li>`;
+    }).join("");
+  } catch(e) {
+    list.innerHTML = `<li class="commit-item"><span class="commit-msg" style="color:var(--ha-text-secondary)">Kan commits niet laden: ${escHtml(e.message)}</span></li>`;
+  }
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") { closePopup(); closeGitModal(); }
+  if ((e.ctrlKey||e.metaKey) && e.key === "k") {
+    e.preventDefault();
+    document.getElementById("searchInput").focus();
+    document.getElementById("searchInput").select();
+  }
+});
+
+loadIcons();
 </script>
-
-    <div class="header">
-        <img src="data:image/png;base64,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" alt="CAS genesisWorld Logo">
-        <h1>CAS genesisWorld Icon Library</h1>
-    </div>
-    <input type="text" id="searchInput" class="search-bar" placeholder="Zoek iconen..." onkeyup="searchIcons()">
-    
-    <button class="log-button" onclick="openModal()">📜 Git Log</button>
-<span id="iconCount" style="font-size: 14px; margin-left: 10px; color: #555;">Aantal iconen: 0</span>
-        
-    </div>
-    
-    <div class="group-container" id="groupContainer"></div>
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <img id="popupImage" src="" alt="Popup Icon">
-            <p id="popupText"></p>
-            <p id="popupHex"></p>
-            <p id="downloadCount"></p>
-            <button id="downloadBtn">Download</button>
-            <button onclick="closePopup()">Close</button>
-            <button id="copyHexBtn">Copy Hex Code</button>
-        </div>
-    </div>
-    <div class="popup" id="gitModal">
-        <div class="popup-content">
-            
-            <h2>Laatste Git Commits</h2>
-            <ul id="commit-list">Commits worden geladen...</ul>
-            
-            <p id="popupText"></p>
-            <button onclick="closePopupgitModal()">Close</button>
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>&copy; 2025 Dimitri Van den Broeck. All rights reserved.</p>
-    </div>
-    <script>
-        const iconBasePath = "icons";
-        async function loadIcons() {
-    try {
-        let response = await fetch(`https://api.github.com/repos/vdbroecd/custom-icons-cas/contents/${iconBasePath}`);
-        let files = await response.json();
-        let groupedIcons = {};
-        let totalFiles = 0; // Initialize counter
-
-        files.forEach(file => {
-            if (file.name.endsWith(".svg") || file.name.endsWith(".png")) { // Check for valid file types
-                totalFiles++; // Increment counter
-                let parts = file.name.replace("icon_", "").split(" ");
-                let groupName = parts[0];
-                if (!groupedIcons[groupName]) {
-                    groupedIcons[groupName] = [];
-                }
-                groupedIcons[groupName].push(file.name);
-            }
-        });
-
-        // Update the file count in the UI
-        document.getElementById("iconCount").textContent = `Aantal iconen: ${totalFiles}`;
-
-        let container = document.getElementById("groupContainer");
-        container.innerHTML = "";
-        Object.keys(groupedIcons).forEach(group => {
-            let groupDiv = document.createElement("div");
-            groupDiv.classList.add("group");
-            let title = document.createElement("h2");
-            title.textContent = group;
-            groupDiv.appendChild(title);
-            let iconGrid = document.createElement("div");
-            iconGrid.classList.add("icon-grid");
-            groupedIcons[group].sort((a, b) => {
-                if (a.includes("64") && !b.includes(" 64")) return -1;
-                if (!a.includes(" 64") && b.includes("64")) return 1;
-                return a.localeCompare(b); // Default alphabetical order
-            });
-            groupedIcons[group].forEach(iconName => {
-                let iconPath = `https://vdbroecd.github.io/custom-icons-cas/${iconBasePath}/${iconName}`;
-                let iconItem = document.createElement("div");
-                iconItem.classList.add("icon-item");
-
-                let bgColor = "white"; // Default background color
-
-                // Special handling for icons with "64" or "Dashboard" in their name
-                if (iconName.includes(" 64") || iconName.includes("Dashboard")) {
-                    bgColor = "#555555"; // Special color for these icons
-                }
-
-                // Check for hex color code and apply it
-                let match = iconName.match(/64 ([A-Fa-f0-9]{6})/);
-                if (match) {
-                    bgColor = `#${match[1]}`; // Extract and apply the hex color
-                }
-
-                iconItem.innerHTML = `
-                    <img src="${iconPath}" alt="${iconName}" title="${iconName}" onclick="openPopup('${iconPath}', '${iconName}', '${bgColor}')" style="background-color: ${bgColor};"> 
-                    <p>${iconName}</p>
-                `;
-                iconGrid.appendChild(iconItem);
-            });
-            groupDiv.appendChild(iconGrid);
-            container.appendChild(groupDiv);
-        });
-    } catch (error) {
-        console.error("Fout bij laden van iconen:", error);
-    }
-}
-
-        function openPopup(imagePath, iconName, hexColor) {
-            document.getElementById("popupImage").src = imagePath;
-            document.getElementById("popupText").textContent = iconName;
-            document.getElementById("popupHex").textContent = `Hex Color: ${hexColor}`;
-            document.getElementById("copyHexBtn").onclick = () => navigator.clipboard.writeText(hexColor);
-            let count = localStorage.getItem(iconName) || 0;
-            document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
-            document.getElementById("popup").style.display = "flex";
-            document.getElementById("downloadBtn").onclick = function () {
-                localStorage.setItem(iconName, ++count);
-                document.getElementById("downloadCount").textContent = `Downloads: ${count}`;
-                const link = document.createElement("a");
-                link.href = imagePath;
-                link.download = iconName;
-                link.click();
-            };
-        }
-
-        function closePopup() {
-    document.getElementById("popup").style.display = "none";
-}
-
-function closePopupgitModal() {
-    document.getElementById("gitModal").style.display = "none";  // Correcte modal
-}
-
-        
-
-        function searchIcons() {
-            let input = document.getElementById("searchInput").value.toLowerCase();
-            document.querySelectorAll(".icon-item").forEach(item => item.style.display = item.querySelector("p").textContent.toLowerCase().includes(input) ? "flex" : "none");
-        }
-
-        loadIcons();
-    </script>
-    <script>
-        function openModal() {
-            document.getElementById("gitModal").style.display = "flex";
-            fetchGitCommits();
-        }
-    
-        function closeModal() {
-            document.getElementById("gitModal").style.display = "none";
-        }
-    
-        window.onclick = function(event) {
-            let modal = document.getElementById("gitModal");
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    
-        async function fetchGitCommits() {
-    const repoOwner = "vdbroecd";
-    const repoName = "custom-icons-cas";
-
-    try {
-        const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/commits`);
-        const commits = await response.json();
-
-        let commitList = "";
-        commits.forEach(commit => {
-            let author = commit.commit.author.name;
-            let message = commit.commit.message;
-            let dateTime = new Date(commit.commit.author.date);
-            
-            // Datum en tijd formatteren
-            let options = { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" };
-            let formattedDate = dateTime.toLocaleDateString("nl-NL", options);
-
-            commitList += `<li>
-    <strong>${author}</strong>: ${message} <br>
-    📅 ${formattedDate} 
-    (<a href="${commit.html_url}" target="_blank" style="color: grey; display: inline;">Bekijk commit</a>)
-</li>`;
-        });
-
-        document.getElementById("commit-list").innerHTML = commitList;
-    } catch (error) {
-        document.getElementById("commit-list").innerHTML = "Fout bij het ophalen van commits.";
-    }
-}
-
-    </script>
-    
 </body>
-
 </html>
