@@ -1,0 +1,14 @@
+{
+  "id": "scr-template",
+  "keyword": "Script titel",
+  "type": "SQL",
+  "status": "Draft",
+  "dataset": "",
+  "customers": ["Klant A"],
+  "variantOf": "",
+  "createdAt": "2026-09-09",
+  "updatedAt": "2026-09-09",
+  "codeLang": "sql",
+  "notes": "<h3>Doel</h3><p>Beschrijf hier het doel van het script.</p>",
+  "code": "SELECT 1;"
+}

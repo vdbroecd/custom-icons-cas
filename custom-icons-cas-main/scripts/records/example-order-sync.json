@@ -1,0 +1,14 @@
+{
+  "id": "scr-001",
+  "keyword": "OrderSync SQL",
+  "type": "SQL",
+  "status": "Active",
+  "dataset": "CRM_Production",
+  "customers": ["Klant A", "Klant B"],
+  "variantOf": "",
+  "createdAt": "2026-09-01",
+  "updatedAt": "2026-09-07",
+  "codeLang": "sql",
+  "notes": "<h3>Doel</h3><p>Synchroniseert bestellingen naar het rapportage-dataset.</p><p><strong>Opmerking:</strong> controleer de datumgrens bij periodes met weekendstatus.</p>",
+  "code": "SELECT customer_id, order_id, created_at\nFROM dbo.orders\nWHERE status = 'Open'\nORDER BY created_at DESC;"
+}
