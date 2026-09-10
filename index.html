@@ -1061,7 +1061,7 @@
             </div>
             <div class="field">
               <label for="scriptDataset">Dataset</label>
-              <input id="scriptDataset" name="dataset" type="text" list="scriptDatasetList" placeholder="Bijv. CRM_Production of typ zelf" autocomplete="off">
+              <input id="scriptDataset" name="dataset" type="text" list="scriptDatasetList" placeholder="Bijv. Factuurheaders of typ zelf" autocomplete="off">
               <datalist id="scriptDatasetList">
                 <option value="Vrije invoer">Vrije invoer</option>
               </datalist>
@@ -1085,6 +1085,15 @@
                 <option value="Approved">Approved</option>
                 <option value="Archived">Archived</option>
               </select>
+            </div>
+
+                        <div class="field">
+              <label for="scriptERP">Gekoppelde software</label>
+              <select id="scriptERP" name="erp">
+                <option value="Dimasys">Dimasys</option>
+                <option value="Wholesale">Wholesale</option>
+                <option value="Andere">Andere</option>
+                </select>
             </div>
 
             <div class="field">
@@ -1975,6 +1984,7 @@ function renderScriptForm(script) {
   const createdAt = document.getElementById("scriptCreatedAt");
   const updatedAt = document.getElementById("scriptUpdatedAt");
   const status = document.getElementById("scriptStatus");
+  const erp = document.getElementById("scriptERP");
   const dataset = document.getElementById("scriptDataset");
   const customers = document.getElementById("scriptCustomers");
   const scriptNumber = document.getElementById("scriptNumber");
@@ -2171,6 +2181,7 @@ function collectScriptFromForm() {
     updatedAt: getTodayIso(),
     type: rawType === "Vrije invoer" ? "" : rawType,
     status: document.getElementById("scriptStatus").value,
+    erp: document.getElementById("scriptERP").value,
     dataset: rawDataset === "Vrije invoer" ? "" : rawDataset,
     customers: rawCustomer === "Vrije invoer" ? "" : rawCustomer,
     variantOf: document.getElementById("scriptVariantOf").value,
