@@ -973,35 +973,6 @@
     .icon-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; }
   }
 </style>
-  
-
-<div class="header-meta">
-  <span id="iconCount" class="pill-count" aria-live="polite">0</span>
-  <button id="themeToggle" class="theme-toggle" type="button" aria-label="Wissel licht/donker thema">
-    Dark
-  </button>
-</div>
-
-<script>
-  const themeToggle = document.getElementById("themeToggle");
-  const savedTheme = localStorage.getItem("theme");
-
-  function applyTheme(theme) {
-    document.body.setAttribute("data-theme", theme);
-    const isDark = theme === "dark";
-    themeToggle.textContent = isDark ? "Light" : "Dark";
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-    localStorage.setItem("theme", theme);
-  }
-
-  const initialTheme = savedTheme || "light";
-  applyTheme(initialTheme);
-
-  themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(nextTheme);
-  });
-</script>
 </head>
 <body>
 
