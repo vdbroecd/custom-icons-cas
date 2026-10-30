@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1{fill:#cccccc;opacity:0.4}
+      .cls-2{fill:#777777}
+      .cls-3{fill:#cccccc}
+      .cls-4{fill:#ffffff}
+    </style>
+  </defs>
   <title>icon_Contact companysuspect 36.svg</title>
   <g id="Layer_1" data-name="Layer 1">
     <path d="M26 4 L9 4 C7.89543 4 7 4.89543 7 6 L7 7 L16 7 C17.65685 7 19 8.34315 19 10 L19 20 L26 20 C27.10457 20 28 19.10457 28 18 L28 6 C28 4.89543 27.10457 4 26 4 Z" class="cls-1"/>
